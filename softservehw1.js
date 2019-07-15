@@ -58,7 +58,8 @@ const data = [
 //     return obj
 // })
 
-let mapWithReduce = data.reduce(function (acc, currentValue) {
+function mapUsers(data){
+  let mapped = data.reduce(function (acc, currentValue) {
         let allInfo = {
             'brand': currentValue.brand,
             'phones': currentValue.phones
@@ -66,6 +67,8 @@ let mapWithReduce = data.reduce(function (acc, currentValue) {
         acc[currentValue.user] = allInfo
         return acc;
 }, {})
+  return mapped;
+}
 
 //console.log(mapWithReduce);
 
@@ -79,6 +82,17 @@ let phoneCodes = [...new Set(data.map(item=>item.phones)
     .reduce((acc,next)=>acc.concat(next)
     .map(phones=>phones.substring(0, 5)),[]))]
 
-//console.log(phoneCodes);
 
-    
+
+    function searchPhone(data, search) {
+  let newArr=[];
+  data.map((obj)=>obj.phones.map((phone)=>{
+          if(phone.indexOf(search) != -1){
+          newArr.push(obj)
+        }
+      }))
+      return mapUsers(newArr)
+  }
+
+console.log(searchPhone(data, '45'))
+console.log(searchPhone(data, '89'))
